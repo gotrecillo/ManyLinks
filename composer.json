@@ -1,15 +1,22 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=7.0.0",
         "backpack/base": "^0.7.25",
+        "backpack/crud": "^3.2",
+        "barryvdh/laravel-ide-helper": "^2.4",
         "fideloper/proxy": "~3.3",
+        "folklore/graphql": "^1.0",
         "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "spatie/laravel-translatable": "^2.0"
     },
     "require-dev": {
         "backpack/generators": "^1.1",
@@ -17,7 +24,8 @@
         "fzaninotto/faker": "~1.4",
         "laracasts/generators": "dev-master",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~6.0"
+        "phpunit/phpunit": "~6.0",
+        "squizlabs/php_codesniffer": "^3.0"
     },
     "autoload": {
         "classmap": [
@@ -35,8 +43,7 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": [
-            ]
+            "dont-discover": ["barryvdh/laravel-ide-helper"]
         }
     },
     "scripts": {
@@ -49,6 +56,16 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
+        ],
+        "post-update-cmd": [
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta"
+        ],
+        "lint": [
+            "./vendor/bin/phpcs --standard=PSR2 app/"
+        ],
+        "lint-fix": [
+            "./vendor/bin/phpcbf --standard=PSR2 app/"
         ]
     },
     "config": {
