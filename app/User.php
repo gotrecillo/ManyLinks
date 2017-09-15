@@ -2,9 +2,12 @@
 
 namespace App;
 
+use \Illuminate\Notifications\DatabaseNotificationCollection;
+use \Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
+use Laravel\Passport\HasApiTokens;
 
 /**
  * App\User
@@ -18,7 +21,7 @@ use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNo
  * @property string $password
  * @property string|null $remember_token
  * @property \Carbon\Carbon|null $updated_at
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereId($value)
@@ -30,6 +33,7 @@ use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNo
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -37,7 +41,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -46,17 +52,26 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
-     /**
+    /**
      * Send the password reset notification.
      *
-     * @param  string  $token
+     * @param  string $token
      * @return void
      */
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
+    }
+
+    public static function tokenByEmail($email)
+    {
+        return static::whereEmail($email)
+            ->first()
+            ->createToken('password-granted')
+            ->accessToken;
     }
 }

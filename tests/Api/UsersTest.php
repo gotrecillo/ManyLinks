@@ -3,14 +3,14 @@
 namespace Tests\Api;
 
 use App\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class UsersTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
-    public function testEmptyUsers()
+    public function test_doesnt_fail_when_there_is_no_user()
     {
         $response = $this->get('/graphql?query={users{id,name,email}}');
         $response->assertExactJson([
@@ -21,7 +21,7 @@ class UsersTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testWithSomeUsers()
+    public function test_can_retrieve_the_users()
     {
         $this->createTestUsers();
 
@@ -38,7 +38,7 @@ class UsersTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testCantRetrievePasswords()
+    public function test_cant_retrieve_passwords()
     {
         $this->createTestUsers();
         $response = $this->get('/graphql?query={users{id,name,email,password}}');

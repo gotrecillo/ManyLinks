@@ -37,7 +37,7 @@ class Users extends Query
     {
         if (isset($args['id'])) {
             return User::where('id', $args['id'])->get();
-        } else if (isset($args['email'])) {
+        } elseif (isset($args['email'])) {
             return User::where('email', $args['email'])->get();
         } else {
             return User::all();
