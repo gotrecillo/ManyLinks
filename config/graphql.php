@@ -114,7 +114,7 @@ return [
                 'users' => \App\GraphQL\Query\Users::class,
             ],
             'mutation' => [
-
+                'login' => \App\GraphQL\Mutation\Auth\Login::class
             ]
         ]
     ],
@@ -137,6 +137,7 @@ return [
      */
     'types' => [
         \App\GraphQL\Type\User::class,
+        \App\GraphQL\Type\Me::class,
     ],
 
     /*

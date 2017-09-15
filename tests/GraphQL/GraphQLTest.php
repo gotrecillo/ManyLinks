@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Api;
+namespace Tests\GraphQL;
 
 use Tests\TestCase;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Api;
+namespace Tests\GraphQL;
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
