@@ -2,13 +2,13 @@
 
 namespace ManyLinks\GraphQL\Mutation\Link;
 
+use ManyLinks\GraphQL\Mutation\AuthenticatedMutation;
 use ManyLinks\Models\Link;
-use Folklore\GraphQL\Support\Mutation;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use GraphQL;
 
-class Add extends Mutation
+class Add extends AuthenticatedMutation
 {
     protected $attributes = [
         'name' => 'Add',
