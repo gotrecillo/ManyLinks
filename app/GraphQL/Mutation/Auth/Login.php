@@ -44,11 +44,11 @@ class Login extends Mutation
         $user = User::whereEmail($args['email'])->first();
 
         if (!$valid) {
-            throw new AuthorizationError("Invalid credentials");
+            throw new AuthorizationError('Invalid credentials');
         }
         
-        if (!$user->confirmed){
-            throw new AuthorizationError("Email confirmation needed");
+        if (!$user->confirmed) {
+            throw new AuthorizationError('Email confirmation needed');
         }
 
         $token = $user->createToken('password-granted')->accessToken;
