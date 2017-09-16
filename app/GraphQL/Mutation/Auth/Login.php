@@ -41,12 +41,16 @@ class Login extends Mutation
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
         $valid = Auth::validate(['email' => $args['email'], 'password' => $args['password']]);
+        $user = User::whereEmail($args['email'])->first();
 
         if (!$valid) {
             throw new AuthorizationError("Invalid credentials");
         }
+        
+        if (!$user->confirmed){
+            throw new AuthorizationError("Email confirmation needed");
+        }
 
-        $user = User::first();
         $token = $user->createToken('password-granted')->accessToken;
 
         return [

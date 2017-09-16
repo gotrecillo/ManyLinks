@@ -21,7 +21,12 @@ class LoginTest extends PassportTestCase
 
     public function test_changes_access_token_for_correct_credentials()
     {
-        User::create(['name' => 'Foo', 'password' => bcrypt('password'), 'email' => 'foo@foo.foo']);
+        User::create([
+            'name' => 'Foo',
+            'password' => bcrypt('password'),
+            'email' => 'foo@foo.foo',
+            'confirmed' => true
+        ]);
 
         $response = $this->getLoginResponse();
         $parsedResponse = $this->getParsedContent($response);
@@ -31,6 +36,23 @@ class LoginTest extends PassportTestCase
         $this->assertObjectHasAttribute('token', $parsedResponse->data->login);
         $this->assertInternalType('string', $parsedResponse->data->login->token);
         $this->assertObjectNotHasAttribute('errors', $parsedResponse);
+        $response->assertStatus(200);
+    }
+
+    public function test_user_needs_to_be_confirmed_to_be_able_to_log_in()
+    {
+        User::create([
+            'name' => 'Foo',
+            'password' => bcrypt('password'),
+            'email' => 'foo@foo.foo',
+        ]);
+
+        $response = $this->getLoginResponse();
+        $parsedResponse = $this->getParsedContent($response);
+
+        $this->assertObjectHasAttribute('errors', $parsedResponse);
+        $this->assertObjectHasAttribute('message', $parsedResponse->errors[0]);
+        $this->assertEquals('Email confirmation needed', $parsedResponse->errors[0]->message);
         $response->assertStatus(200);
     }
 

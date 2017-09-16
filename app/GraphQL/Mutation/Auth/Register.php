@@ -55,10 +55,8 @@ class Register extends Mutation
 
         event(new UserRegistered($user));
 
-        $token = $user->createToken('password-granted')->accessToken;
-
         return [
-            'token' => $token,
+            'token' => null,
             'User' => $user
         ];
     }

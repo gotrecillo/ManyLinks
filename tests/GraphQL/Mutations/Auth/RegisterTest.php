@@ -112,7 +112,7 @@ class RegisterTest extends PassportTestCase
         $this->assertObjectHasAttribute('data', $parsedResponse);
         $this->assertObjectHasAttribute('register', $parsedResponse->data);
         $this->assertObjectHasAttribute('token', $parsedResponse->data->register);
-        $this->assertInternalType('string', $parsedResponse->data->register->token);
+        $this->assertSame(null, $parsedResponse->data->register->token);
         $this->assertObjectNotHasAttribute('errors', $parsedResponse);
     }
 
