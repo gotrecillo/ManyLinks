@@ -27,7 +27,7 @@ class RegisterTest extends PassportTestCase
     {
         User::create(['name' => 'Foo', 'password' => bcrypt('password'), 'email' => 'foo@foo.foo']);
 
-        $response = $this->post('/graphql', [
+        $response = $this->post('/api', [
             'query' => $this->getQuery(),
             'variables' => $this->getVariables()
         ]);
@@ -46,7 +46,7 @@ class RegisterTest extends PassportTestCase
 
     public function test_cant_register_a_user_if_passwords_doesnt_match()
     {
-        $response = $this->post('/graphql', [
+        $response = $this->post('/api', [
             'query' => $this->getQuery(),
             'variables' => [
                 'email' => 'foo@foo.foo',
@@ -118,7 +118,7 @@ class RegisterTest extends PassportTestCase
 
     private function getRegisterResponse()
     {
-        return $this->post('/graphql', [
+        return $this->post('/api', [
             'query' => $this->getQuery(),
             'variables' => $this->getVariables()
         ]);

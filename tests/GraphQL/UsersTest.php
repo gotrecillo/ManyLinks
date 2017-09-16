@@ -9,7 +9,7 @@ class UsersTest extends TestCase
 {
     public function test_doesnt_fail_when_there_is_no_user()
     {
-        $response = $this->get('/graphql?query={users{id,name,email}}');
+        $response = $this->get('/api?query={users{id,name,email}}');
         $response->assertExactJson([
             "data" => [
                 "users" => []
@@ -22,7 +22,7 @@ class UsersTest extends TestCase
     {
         $this->createTestUsers();
 
-        $response = $this->get('/graphql?query={users{id,name,email}}');
+        $response = $this->get('/api?query={users{id,name,email}}');
         $response->assertExactJson([
             "data" => [
                 "users" => [
@@ -38,7 +38,7 @@ class UsersTest extends TestCase
     public function test_cant_retrieve_passwords()
     {
         $this->createTestUsers();
-        $response = $this->get('/graphql?query={users{id,name,email,password}}');
+        $response = $this->get('/api?query={users{id,name,email,password}}');
 
         $response->assertJsonFragment(["data" => null]);
         $response->assertJsonStructure(["data", "errors"]);

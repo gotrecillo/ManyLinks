@@ -37,14 +37,14 @@ class AddTest extends PassportTestCase
     {
         $response = $this->getAddResponse();
         $parsedResponse = $this->getParsedContent($response);
-        
+
         $this->assertObjectHasAttribute('errors', $parsedResponse);
         $response->assertStatus(200);
     }
 
     private function getAddResponse()
     {
-        return $this->post('/graphql', [
+        return $this->post('/api', [
             'query' => $this->getQuery(),
             'variables' => $this->getVariables()
         ]);

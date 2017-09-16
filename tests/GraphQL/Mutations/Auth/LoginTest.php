@@ -58,7 +58,7 @@ class LoginTest extends PassportTestCase
 
     private function getLoginResponse()
     {
-        return $this->post('/graphql', [
+        return $this->post('/api', [
             'query' => $this->getQuery(),
             'variables' => $this->getVariables(),
         ]);
