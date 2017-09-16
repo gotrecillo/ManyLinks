@@ -18,8 +18,6 @@ class RegisterTest extends PassportTestCase
 
         $this->assertUserHasBeenCreated($parsedResponse);
 
-        $response->assertStatus(200);
-
         $this->assertDatabaseHas('users', ["email" => "foo@foo.foo"]);
     }
 
@@ -118,13 +116,10 @@ class RegisterTest extends PassportTestCase
 
     private function getRegisterResponse()
     {
-        return $this->post('/api', [
-            'query' => $this->getQuery(),
-            'variables' => $this->getVariables()
-        ]);
+        return $this->getGraphQLResponse('/api');
     }
 
-    private function getQuery()
+    protected function getQuery()
     {
         return
             'mutation($email: String, $password: String, $passwordConfirmation: String, $name: String) {
@@ -134,7 +129,7 @@ class RegisterTest extends PassportTestCase
             }';
     }
 
-    private function getVariables()
+    protected function getVariables()
     {
         return [
             'email' => 'foo@foo.foo',

@@ -4,7 +4,6 @@ namespace ManyLinks\GraphQL\Mutation;
 
 use Folklore\GraphQL\Error\AuthorizationError;
 use Folklore\GraphQL\Support\Mutation;
-use GraphQL\Type\Definition\ResolveInfo;
 
 abstract class AuthenticatedMutation extends Mutation
 {
@@ -17,7 +16,7 @@ abstract class AuthenticatedMutation extends Mutation
         parent::__construct($attributes);
     }
 
-    public function resolve($root, $args, $context, ResolveInfo $info)
+    protected function authenticatedOrError()
     {
         if (!$this->user) {
             throw new AuthorizationError('No Authentication provided');

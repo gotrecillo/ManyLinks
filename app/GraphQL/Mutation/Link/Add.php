@@ -37,6 +37,8 @@ class Add extends AuthenticatedMutation
 
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
+        $this->authenticatedOrError();
+
         auth()->user()->links()->save(Link::make($args));
 
         return [

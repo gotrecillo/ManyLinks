@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\GraphQL\Mutations\Link;
+namespace Tests\GraphQL\Mutations\Auth;
 
 use Laravel\Passport\Passport;
 use ManyLinks\Models\User;
@@ -39,12 +39,17 @@ class AddTest extends PassportTestCase
         $this->assertResponseHasAuthenticationError($response);
     }
 
-    protected function getAddResponse()
+    private function getAddResponse()
     {
-        return $this->getGraphQLResponse('/api/me');
+        $response = $this->post('/api/me', [
+            'query' => $this->getQuery(),
+            'variables' => $this->getVariables()
+        ]);
+
+        return tap($response)->assertStatus(200);
     }
 
-    protected function getQuery()
+    private function getQuery()
     {
         return
             'mutation($url: String, $description: String) {
@@ -54,7 +59,7 @@ class AddTest extends PassportTestCase
             }';
     }
 
-    protected function getVariables()
+    private function getVariables()
     {
         return [
             'url' => 'www.google.com',
