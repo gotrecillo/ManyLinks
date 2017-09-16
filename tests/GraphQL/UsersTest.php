@@ -3,13 +3,10 @@
 namespace Tests\GraphQL;
 
 use ManyLinks\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class UsersTest extends TestCase
 {
-    use DatabaseTransactions;
-
     public function test_doesnt_fail_when_there_is_no_user()
     {
         $response = $this->get('/graphql?query={users{id,name,email}}');

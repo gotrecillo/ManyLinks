@@ -5,14 +5,11 @@ namespace Tests\GraphQL\Mutations\Auth;
 use Event;
 use ManyLinks\Events\UserRegistered;
 use ManyLinks\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Ramsey\Uuid\Uuid;
 use Tests\PassportTestCase;
 
 class RegisterTest extends PassportTestCase
 {
-    use DatabaseTransactions;
-
     public function test_registers_a_users()
     {
         $response = $this->getRegisterResponse();

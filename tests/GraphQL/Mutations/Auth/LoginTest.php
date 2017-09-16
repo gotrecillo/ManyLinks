@@ -3,13 +3,10 @@
 namespace Tests\GraphQL\Mutations\Auth;
 
 use ManyLinks\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\PassportTestCase;
 
 class LoginTest extends PassportTestCase
 {
-    use DatabaseTransactions;
-
     public function test_gives_error_when_credentials_dont_match()
     {
         $response = $this->getLoginResponse();
