@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace ManyLinks\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 use Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
 
 /**
- * App\Models\Link
+ * ManyLinks\Models\Link
  *
  * @property \Carbon\Carbon|null $created_at
  * @property string|null $description
@@ -17,14 +17,14 @@ use Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
  * @property \Carbon\Carbon|null $updated_at
  * @property string $url
  * @property int $user_id
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Link whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Link whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Link whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Link wherePrivate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Link whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Link whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Link whereUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Link whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\ManyLinks\Models\Link whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\ManyLinks\Models\Link whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\ManyLinks\Models\Link whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\ManyLinks\Models\Link wherePrivate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\ManyLinks\Models\Link whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\ManyLinks\Models\Link whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\ManyLinks\Models\Link whereUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\ManyLinks\Models\Link whereUserId($value)
  * @mixin \Eloquent
  */
 class Link extends Model

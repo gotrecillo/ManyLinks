@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace ManyLinks\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use App\Http\Requests\LinkRequest as StoreRequest;
-use App\Http\Requests\LinkRequest as UpdateRequest;
+use ManyLinks\Http\Requests\LinkRequest as StoreRequest;
+use ManyLinks\Http\Requests\LinkRequest as UpdateRequest;
 
 class LinkCrudController extends CrudController
 {
@@ -12,7 +12,7 @@ class LinkCrudController extends CrudController
     {
         $user = new PDO;
     
-        $this->crud->setModel('App\Models\Link');
+        $this->crud->setModel('ManyLinks\Models\Link');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/link');
         $this->crud->setEntityNameStrings('link', 'links');
         

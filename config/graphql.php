@@ -111,11 +111,11 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                'users' => \App\GraphQL\Query\Users::class,
+                'users' => \ManyLinks\GraphQL\Query\Users::class,
             ],
             'mutation' => [
-                'login' => \App\GraphQL\Mutation\Auth\Login::class,
-                'register' => \App\GraphQL\Mutation\Auth\Register::class,
+                'login' => \ManyLinks\GraphQL\Mutation\Auth\Login::class,
+                'register' => \ManyLinks\GraphQL\Mutation\Auth\Register::class,
             ]
         ]
     ],
@@ -137,8 +137,8 @@ return [
      * ]
      */
     'types' => [
-        \App\GraphQL\Type\User::class,
-        \App\GraphQL\Type\Me::class,
+        \ManyLinks\GraphQL\Type\User::class,
+        \ManyLinks\GraphQL\Type\Me::class,
     ],
 
     /*

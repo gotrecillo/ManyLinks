@@ -34,7 +34,7 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "ManyLinks\\": "app/"
         }
     },
     "autoload-dev": {

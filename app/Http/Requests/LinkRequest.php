@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace ManyLinks\Http\Requests;
 
-use App\Http\Requests\Request;
+use ManyLinks\Http\Requests\Request;
 
 class LinkRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
 {

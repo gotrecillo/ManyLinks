@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GraphQL\Type;
+namespace ManyLinks\GraphQL\Type;
 
 use GraphQL;
 use GraphQL\Type\Definition\Type;

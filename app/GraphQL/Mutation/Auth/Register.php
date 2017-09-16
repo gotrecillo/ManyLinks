@@ -1,8 +1,9 @@
 <?php
 
-namespace App\GraphQL\Mutation\Auth;
+namespace ManyLinks\GraphQL\Mutation\Auth;
 
-use App\User;
+use ManyLinks\Events\UserRegistered;
+use ManyLinks\Models\User;
 use Auth;
 use Folklore\GraphQL\Error\AuthorizationError;
 use Folklore\GraphQL\Support\Mutation;
@@ -51,6 +52,9 @@ class Register extends Mutation
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
         $user = User::create($args);
+
+        event(new UserRegistered($user));
+
         $token = $user->createToken('password-granted')->accessToken;
 
         return [

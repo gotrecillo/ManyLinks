@@ -1,8 +1,8 @@
 <?php
 
-namespace App\GraphQL\Mutation\Auth;
+namespace ManyLinks\GraphQL\Mutation\Auth;
 
-use App\User;
+use ManyLinks\Models\User;
 use Auth;
 use Folklore\GraphQL\Error\AuthorizationError;
 use Folklore\GraphQL\Support\Mutation;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GraphQL\Type;
+namespace ManyLinks\GraphQL\Type;
 
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as BaseType;
@@ -20,7 +20,7 @@ class User extends BaseType
                 'description' => 'The id of the user',
             ],
             'email' => [
-                'type' => Type::string('sda'),
+                'type' => Type::string(),
                 'description' => 'The email of the user',
             ],
             'name' => [

@@ -2,7 +2,7 @@
 
 namespace Tests\GraphQL\Mutations\Auth;
 
-use App\User;
+use ManyLinks\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\PassportTestCase;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\GraphQL\Query;
+namespace ManyLinks\GraphQL\Query;
 
-use App\User;
+use ManyLinks\Models\User;
 use Folklore\GraphQL\Support\Query;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;

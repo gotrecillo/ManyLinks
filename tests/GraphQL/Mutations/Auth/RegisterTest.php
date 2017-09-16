@@ -2,7 +2,8 @@
 
 namespace Tests\GraphQL\Mutations\Auth;
 
-use App\User;
+use ManyLinks\Events\UserRegistered;
+use ManyLinks\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\PassportTestCase;
 
@@ -12,18 +13,12 @@ class RegisterTest extends PassportTestCase
 
     public function test_registers_a_users()
     {
-        $response = $this->post('/graphql', [
-            'query' => $this->getQuery(),
-            'variables' => $this->getVariables()
-        ]);
+        $response = $this->getRegisterResponse();
 
         $parsedResponse = $this->getParsedContent($response);
 
-        $this->assertObjectHasAttribute('data', $parsedResponse);
-        $this->assertObjectHasAttribute('register', $parsedResponse->data);
-        $this->assertObjectHasAttribute('token', $parsedResponse->data->register);
-        $this->assertInternalType('string', $parsedResponse->data->register->token);
-        $this->assertObjectNotHasAttribute('errors', $parsedResponse);
+        $this->assertUserHasBeenCreated($parsedResponse);
+
         $response->assertStatus(200);
 
         $this->assertDatabaseHas('users', ["email" => "foo@foo.foo"]);
@@ -73,8 +68,45 @@ class RegisterTest extends PassportTestCase
         $response->assertStatus(200);
     }
 
+    public function test_user_needs_email_verification_upon_registering()
+    {
+        $response = $this->getRegisterResponse();
 
-    public function getQuery()
+        $parsedResponse = $this->getParsedContent($response);
+
+        $this->assertUserHasBeenCreated($parsedResponse);
+
+        $user = User::whereEmail('foo@foo.foo')->first();
+
+        $this->assertSame(false, $user->confirmed);
+    }
+
+    public function test_dispatchs_user_registered_event()
+    {
+        $response = $this->getRegisterResponse();
+        $this->expectsEvents([\ManyLinks\Events\UserRegistered::class ]);
+        event(new UserRegistered(User::whereEmail('foo@foo.foo')->first()));
+    }
+
+
+    private function assertUserHasBeenCreated($parsedResponse)
+    {
+        $this->assertObjectHasAttribute('data', $parsedResponse);
+        $this->assertObjectHasAttribute('register', $parsedResponse->data);
+        $this->assertObjectHasAttribute('token', $parsedResponse->data->register);
+        $this->assertInternalType('string', $parsedResponse->data->register->token);
+        $this->assertObjectNotHasAttribute('errors', $parsedResponse);
+    }
+
+    private function getRegisterResponse()
+    {
+        return $this->post('/graphql', [
+            'query' => $this->getQuery(),
+            'variables' => $this->getVariables()
+        ]);
+    }
+
+    private function getQuery()
     {
         return
             'mutation($email: String, $password: String, $passwordConfirmation: String, $name: String) {
@@ -84,7 +116,7 @@ class RegisterTest extends PassportTestCase
             }';
     }
 
-    public function getVariables()
+    private function getVariables()
     {
         return [
             'email' => 'foo@foo.foo',
