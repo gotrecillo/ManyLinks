@@ -64,4 +64,9 @@ class User extends Authenticatable
             ->createToken('password-granted')
             ->accessToken;
     }
+
+    public function links()
+    {
+        return $this->hasMany(Link::class);
+    }
 }

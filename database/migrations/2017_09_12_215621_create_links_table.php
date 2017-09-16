@@ -15,9 +15,7 @@ class CreateLinksTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->string('url');
-            $table->string('title')->nullable();
             $table->string('description')->nullable();
-            $table->boolean('private')->default(false);
             $table->timestamps();
         });
     }
