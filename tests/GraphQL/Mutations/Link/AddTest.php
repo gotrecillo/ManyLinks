@@ -44,7 +44,7 @@ class AddTest extends PassportTestCase
 
     private function getAddResponse()
     {
-        return $this->post('/api', [
+        return $this->post('/api/me', [
             'query' => $this->getQuery(),
             'variables' => $this->getVariables()
         ]);

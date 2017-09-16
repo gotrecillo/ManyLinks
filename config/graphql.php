@@ -116,6 +116,10 @@ return [
             'mutation' => [
                 'login' => \ManyLinks\GraphQL\Mutation\Auth\Login::class,
                 'register' => \ManyLinks\GraphQL\Mutation\Auth\Register::class,
+            ]
+        ],
+        'me' => [
+            'mutation' => [
                 'addLink' => \ManyLinks\GraphQL\Mutation\Link\Add::class,
             ]
         ]
