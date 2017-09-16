@@ -2,9 +2,11 @@
 
 namespace Tests\GraphQL\Mutations\Auth;
 
+use Event;
 use ManyLinks\Events\UserRegistered;
 use ManyLinks\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Ramsey\Uuid\Uuid;
 use Tests\PassportTestCase;
 
 class RegisterTest extends PassportTestCase
@@ -79,13 +81,17 @@ class RegisterTest extends PassportTestCase
         $user = User::whereEmail('foo@foo.foo')->first();
 
         $this->assertSame(false, $user->confirmed);
+        $this->assertTrue(Uuid::isValid($user->confirmation_code));
+        $this->assertInternalType('string', $user->confirmation_code);
     }
 
     public function test_dispatchs_user_registered_event()
     {
-        $response = $this->getRegisterResponse();
-        $this->expectsEvents([\ManyLinks\Events\UserRegistered::class ]);
-        event(new UserRegistered(User::whereEmail('foo@foo.foo')->first()));
+        Event::fake();
+
+        $this->getRegisterResponse();
+
+        Event::assertDispatched(UserRegistered::class);
     }
 
 

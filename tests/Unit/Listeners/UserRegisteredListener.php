@@ -10,9 +10,9 @@ class UserRegisteredListener extends TestCase
 {
     use DatabaseTransactions;
 
-    public function testExample()
+    public function test_sends_a_confirmation_email()
     {
-        User::create(['name' => 'Foo', 'password' => bcrypt('password'), 'email' => 'foo@foo.foo']);
+        $user = factory(User::class)->make();
 
         $this->assertTrue(true);
     }

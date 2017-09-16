@@ -2,6 +2,7 @@
 
 namespace ManyLinks\GraphQL\Mutation\Auth;
 
+use Illuminate\Support\Arr;
 use ManyLinks\Events\UserRegistered;
 use ManyLinks\Models\User;
 use Auth;
@@ -10,6 +11,7 @@ use Folklore\GraphQL\Support\Mutation;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use GraphQL;
+use Ramsey\Uuid\Uuid;
 
 class Register extends Mutation
 {
@@ -51,7 +53,7 @@ class Register extends Mutation
 
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
-        $user = User::create($args);
+        $user = User::create(Arr::add($args, 'confirmation_code', Uuid::uuid4()));
 
         event(new UserRegistered($user));
 
