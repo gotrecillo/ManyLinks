@@ -46,16 +46,6 @@ class LoginTest extends PassportTestCase
 
     }
 
-
-    /**
-     * @param $response \Illuminate\Foundation\Testing\TestResponse
-     * @return mixed
-     */
-    public function getParsedContent($response)
-    {
-        return \GuzzleHttp\json_decode($response->getContent());
-    }
-
     public function getQuery()
     {
         return
