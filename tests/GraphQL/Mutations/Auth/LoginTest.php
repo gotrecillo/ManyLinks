@@ -37,7 +37,7 @@ class LoginTest extends PassportTestCase
         $response->assertStatus(200);
     }
 
-    public function getLoginResponse()
+    private function getLoginResponse()
     {
         return $this->post('/graphql', [
             'query' => $this->getQuery(),
@@ -46,7 +46,7 @@ class LoginTest extends PassportTestCase
 
     }
 
-    public function getQuery()
+    private function getQuery()
     {
         return
             'mutation($email: String, $password: String) {
@@ -56,7 +56,7 @@ class LoginTest extends PassportTestCase
             }';
     }
 
-    public function getVariables()
+    private function getVariables()
     {
         return [
             'email' => 'foo@foo.foo',
