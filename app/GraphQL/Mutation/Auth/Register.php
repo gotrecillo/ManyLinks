@@ -5,8 +5,6 @@ namespace ManyLinks\GraphQL\Mutation\Auth;
 use Illuminate\Support\Arr;
 use ManyLinks\Events\UserRegistered;
 use ManyLinks\Models\User;
-use Auth;
-use Folklore\GraphQL\Error\AuthorizationError;
 use Folklore\GraphQL\Support\Mutation;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;

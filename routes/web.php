@@ -15,7 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function()
-{
-    CRUD::resource('link', 'Admin\LinkCrudController');  
+Route::namespace('Auth')->prefix('auth')->as('auth.')->group(function () {
+    Route::get('/email-confirmation/error')->name('email-verification.error');
+    Route::get('/email-confirmation/{code}', 'ConfirmEmailController')->name('email-verification.check');
+});
+
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+    CRUD::resource('link', 'Admin\LinkCrudController');
 });

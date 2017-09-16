@@ -91,6 +91,21 @@ class RegisterTest extends PassportTestCase
         Event::assertDispatched(UserRegistered::class);
     }
 
+    public function test_register_user_event_gets_listnened()
+    {
+        $listener = \Mockery::spy(\ManyLinks\Listeners\UserRegistered::class);
+        app()->instance(\ManyLinks\Listeners\UserRegistered::class, $listener);
+
+        $reponse = $this->getRegisterResponse();
+
+        $parsedResponse = $this->getParsedContent($reponse);
+
+        $listener->shouldHaveReceived('handle')->with(\Mockery::on(function ($event) {
+            return $event->user->id === User::whereEmail('foo@foo.foo')->first()->id;
+        }))->once();
+
+        $this->assertUserHasBeenCreated($parsedResponse);
+    }
 
     private function assertUserHasBeenCreated($parsedResponse)
     {
@@ -114,7 +129,7 @@ class RegisterTest extends PassportTestCase
         return
             'mutation($email: String, $password: String, $passwordConfirmation: String, $name: String) {
                 register(email: $email, password: $password, passwordConfirmation: $passwordConfirmation, name: $name){
-                    token
+                    token,
                 }
             }';
     }
