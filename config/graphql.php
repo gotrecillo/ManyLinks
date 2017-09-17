@@ -121,6 +121,7 @@ return [
         'me' => [
             'mutation' => [
                 'addLink' => \ManyLinks\GraphQL\Mutation\Link\Add::class,
+                'deleteLink' => \ManyLinks\GraphQL\Mutation\Link\Delete::class,
             ]
         ]
     ],

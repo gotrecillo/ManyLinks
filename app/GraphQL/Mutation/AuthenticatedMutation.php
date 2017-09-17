@@ -16,10 +16,12 @@ abstract class AuthenticatedMutation extends Mutation
         parent::__construct($attributes);
     }
 
-    protected function authenticatedOrError()
+    public function authorize()
     {
         if (!$this->user) {
             throw new AuthorizationError('No Authentication provided');
         }
+
+        return true;
     }
 }

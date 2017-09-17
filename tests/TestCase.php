@@ -12,12 +12,11 @@ abstract class TestCase extends BaseTestCase
 
     protected $baseUrl = '/';
 
-    protected function getGraphQLResponse($endpoint)
+    protected function getGraphQLResponse($endpoint, $opts = [])
     {
-        $response = $this->post($endpoint, [
-            'query' => $this->getQuery(),
-            'variables' => $this->getVariables()
-        ]);
+        $query = $opts['query'] ?? $this->getQuery();
+        $variables = $opts['variables'] ?? $this->getVariables();
+        $response = $this->post($endpoint, compact('query', 'variables'));
 
         return tap($response)->assertStatus(200);
     }
@@ -45,8 +44,6 @@ abstract class TestCase extends BaseTestCase
     {
         $parsedContent = $this->getParsedContent($response);
 
-        $this->assertObjectHasAttribute('errors', $parsedContent);
-        $this->assertObjectHasAttribute('message', $parsedContent->errors[0]);
         $this->assertEquals($message, $parsedContent->errors[0]->message);
     }
 

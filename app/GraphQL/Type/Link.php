@@ -15,6 +15,10 @@ class Link extends BaseType
     public function fields()
     {
         return [
+            'id' => [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'The link id'
+            ],
             'url' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'The link url'
