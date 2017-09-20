@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Route::namespace('Auth')->prefix('auth')->as('auth.')->group(function () {
